@@ -45,9 +45,9 @@ function sendRequest(namespace, text, level='INFO', options={}) {
     }
   };
   request(requestOptions).then((res) => {
-    if (options.debug) console.log("Successfully sent Notification to PushNotice API");
+    if (options.debug) console.log("PushNotice: Successfully sent Notification to PushNotice API");
   }).catch((err) => {
-    if (options.debug) console.error("Error sending Notification to PushNotice API");
+    if (options.debug) console.error("PushNotice: Error sending Notification to PushNotice API");
   });
 }
 
