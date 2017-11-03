@@ -1,10 +1,15 @@
 {
-  "version": "0.1.0",
+  "version": "0.1.1",
   "name": "pushnotice",
   "description": "Application Notifications sent to Telegram. Linking pushnotice.chat into your project.",
-  "keywords": ["telegram", "notifications", "util", "debug", "logging"],
+  "keywords": [
+    "telegram",
+    "notifications",
+    "util",
+    "debug",
+    "logging"
+  ],
   "license": "ISC",
-
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -12,9 +17,7 @@
   "files": [
     "index.js"
   ],
-
   "author": "Chris Spiegl <chris@spiegl.io>",
-
   "repository": {
     "type": "git",
     "url": "https://github.com/spieglio/pushnotice-node-api-client.git"
@@ -23,7 +26,6 @@
     "url": "https://github.com/spieglio/pushnotice-node-api-client/issues"
   },
   "homepage": "https://pushnotice.chat",
-
   "dependencies": {
     "request": "^2.83.0",
     "request-promise-native": "^1.0.5"
