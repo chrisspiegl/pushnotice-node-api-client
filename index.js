@@ -38,6 +38,7 @@ function sendRequest(namespace, text, level='INFO', options={}) {
       namespace: namespace,
       level: level,
       text: text,
+      env: env,
     },
     json: true,
     headers: {
