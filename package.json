@@ -1,6 +1,6 @@
 {
   "version": "0.1.0",
-  "name": "pushnotice.chat",
+  "name": "pushnotice",
   "description": "Application Notifications sent to Telegram. Linking pushnotice.chat into your project.",
   "keywords": ["telegram", "notifications", "util", "debug", "logging"],
   "license": "ISC",
