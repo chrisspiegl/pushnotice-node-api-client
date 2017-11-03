@@ -27,8 +27,9 @@ function sendRequest(namespace, text, level='INFO', options={}) {
     console.error('PushNotice: level has to be provided');
     return;
   }
-  if (options.url == undefined) options.url = 'https://pushnotice.chat/api/vi/chatnotice';
+  if (options.url == undefined) options.url = 'https://pushnotice.chat/api/v1/chatnotice';
   if (options.debug == undefined) options.debug = false;
+  if (options.env == undefined) options.env = undefined;
   let requestOptions = {
     method: 'POST',
     uri: options.url,
@@ -38,7 +39,7 @@ function sendRequest(namespace, text, level='INFO', options={}) {
       namespace: namespace,
       level: level,
       text: text,
-      env: env,
+      env: options.env,
     },
     json: true,
     headers: {
