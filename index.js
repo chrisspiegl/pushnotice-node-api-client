@@ -3,7 +3,7 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 const request = require('request-promise-native');
 
 function sendRequest(namespace, text, level='INFO', options={}) {
-  if (options.disabled == true) {
+  if (options.disabled === true) {
     if (options.debug) console.log('PushNotice: disabled not sending the notification');
     return;
   }
