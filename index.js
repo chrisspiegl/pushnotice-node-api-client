@@ -1,64 +1,79 @@
-process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+const fetch = require('isomorphic-unfetch')
 
-const request = require('request-promise-native');
-
-function sendRequest(namespace, text, level='INFO', options={}) {
+function checkInputs(namespace, text, level, options) {
+  if (options.url === undefined) options.url = 'https://pushnotice.chat/api/v1/chatnotice'
+  if (options.debug === undefined) options.debug = false
+  if (options.env === undefined) options.env = undefined
   if (options.disabled === true) {
-    if (options.debug) console.log('PushNotice: disabled not sending the notification');
-    return;
+    return { error: { title: 'Disabled', message: 'disabled not sending the notification' } }
   }
-  if (options.chat == undefined) {
-    if (options.debug) console.error('PushNotice: chat object has to be provided');
-    return;
+  if (options.chat === undefined) {
+    return { error: { title: 'MissingChatObject', message: 'chat object has to be provided' } }
   }
-  if (options.chat && options.chat.id == undefined) {
-    if (options.debug) console.error('PushNotice: chat id has to be provided');
-    return;
+  if (options.chat?.id === undefined) {
+    return { error: { title: 'MissingChatId', message: 'chat id has to be provided' } }
   }
-  if (options.chat && options.chat.secret == undefined) {
-    if (options.debug) console.error('PushNotice: chat secret has to be provided');
-    return;
+  if (options.chat?.secret === undefined) {
+    return { error: { title: 'MissingChatSecret', message: 'chat secret has to be provided' } }
   }
-  if (namespace == undefined) {
-    if (options.debug) console.error('PushNotice: namespace has to be provided');
-    return;
+  if (namespace === undefined) {
+    return { error: { title: 'MissingNamespace', message: 'namespace has to be provided' } }
   }
-  if (text == undefined) {
-    if (options.debug) console.error('PushNotice: text has to be provided');
-    return;
+  if (typeof namespace !== 'string' && !(namespace instanceof String)) {
+    return { error: { title: 'NamespaceMustBeString', message: 'namespace must be a String' } }
   }
-  if (level == undefined) {
-    if (options.debug) console.error('PushNotice: level has to be provided');
-    return;
+  if (text === undefined && text === '') {
+    return { error: { title: 'MissingText', message: 'text has to be provided' } }
   }
-  if (options.url == undefined) options.url = 'https://pushnotice.chat/api/v1/chatnotice';
-  if (options.debug == undefined) options.debug = false;
-  if (options.env == undefined) options.env = undefined;
-  let requestOptions = {
+  if (typeof text !== 'string' && !(text instanceof String)) {
+    return { error: { title: 'TextMustBeString', message: 'text must be a String' } }
+  }
+  if (level === undefined) {
+    return { error: { title: 'MissingLevel', message: 'level has to be provided' } }
+  }
+  if (typeof level !== 'string' && !(level instanceof String)) {
+    return { error: { title: 'LevelMustBeString', message: 'level must be a String' } }
+  }
+}
+
+async function sendRequest(namespace, text, level = 'INFO', options = {}) {
+  const error = checkInputs(namespace, text, level, options)
+
+  if (error && options.debug) {
+    console.error('PushNotice:', error?.error?.message || error)
+    return error
+  }
+
+  const request = {
     method: 'POST',
-    uri: options.url,
-    body: {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
       chatId: options.chat.id,
       chatSecret: options.chat.secret,
-      namespace: namespace,
-      level: level,
-      text: text,
+      namespace,
+      level,
+      text,
       env: options.env,
-    },
-    json: true,
-    headers: {
-      'content-type': 'application/json',
+    }),
+  }
+
+  try {
+    const response = await fetch(options.url, request)
+    const body = await response.json()
+    if (!body.ok && body.name !== 'notificationQueued') {
+      return { error: { title: 'ApiRequestFailed', message: 'Error sending Notification to PushNotice API' } }
     }
-  };
-  request(requestOptions).then((res) => {
-    if (options.debug) console.log("PushNotice: Successfully sent Notification to PushNotice API");
-  }).catch((err) => {
-    if (options.debug) console.error("PushNotice: Error sending Notification to PushNotice API", err);
-  });
+  } catch (err) {
+    return { error: { title: 'ApiRequestFailed', message: 'Error sending Notification to PushNotice API' } }
+  }
+
+  return { success: true }
 }
 
-module.exports = (namespace, options={}) => {
-  return (text, level='INFO') => {
-    sendRequest(namespace, text, level, options);
-  }
+function pnotice(namespace, options = {}) {
+  return (text, level = 'INFO') => sendRequest(namespace, text, level, options)
 }
+
+module.exports = pnotice

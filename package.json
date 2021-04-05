@@ -12,12 +12,17 @@
   "license": "ISC",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "xo && ava -v",
+    "ava": "ava -v --watch"
   },
   "files": [
     "index.js"
   ],
-  "author": "Chris Spiegl <chris@spiegl.io>",
+  "author": {
+    "name": "Chris Spiegl",
+    "email": "chris@chrisspiegl.com",
+    "url": "https://ChrisSpiegl.com"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/spieglio/pushnotice-node-api-client.git"
@@ -27,7 +32,10 @@
   },
   "homepage": "https://pushnotice.chat",
   "dependencies": {
-    "request": "^2.83.0",
-    "request-promise-native": "^1.0.5"
+    "isomorphic-unfetch": "^3.1.0"
+  },
+  "devDependencies": {
+    "ava": "^3.15.0",
+    "xo": "^0.38.2"
   }
 }
