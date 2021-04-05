@@ -1,5 +1,5 @@
 {
-  "version": "0.2.0",
+  "version": "0.2.1",
   "name": "pushnotice",
   "description": "Application Notifications sent to Telegram. Linking pushnotice.chat into your project.",
   "keywords": [
@@ -10,13 +10,13 @@
     "logging"
   ],
   "license": "ISC",
-  "main": "index.mjs",
+  "main": "index.js",
   "scripts": {
     "test": "xo && ava -v",
     "ava": "ava -v --watch"
   },
   "files": [
-    "index.mjs"
+    "index.js"
   ],
   "author": {
     "name": "Chris Spiegl",
