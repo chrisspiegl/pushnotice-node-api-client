@@ -4,6 +4,5 @@
 
 * Bot: [@PushNoticeBot](https://t.me/PushNoticeBot)
 * Website: [PushNotice.chat](https://pushnotice.chat)
-* Developer: Chris ([Telegram](https://t.me/spieglio), [Twitter](https://twitter.com/spieglio), [Email](mailto:hello@pushnotice.chat))
 
 This is work in progress and will be developed further.
