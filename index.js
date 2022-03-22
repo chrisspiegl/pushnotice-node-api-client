@@ -80,14 +80,20 @@ async function sendRequest(namespace, text, level = 'INFO', options = {}) {
   try {
     const response = await fetch(options.url, request)
     const body = await response.json()
-    if (!body.ok && body.name !== 'notificationQueued') {
-      return { error: { title: 'ApiRequestFailed', message: 'Error sending Notification to PushNotice API' } }
+    if (body.status !== 'ok') {
+      return {
+        error: {
+          title: 'ApiRequestFailed',
+          message: 'Error sending Notification to PushNotice API',
+          body,
+        },
+      }
     }
+
+    return body
   } catch {
     return { error: { title: 'ApiRequestFailed', message: 'Error sending Notification to PushNotice API' } }
   }
-
-  return { success: true }
 }
 
 function pnotice(namespace, options = {}) {
