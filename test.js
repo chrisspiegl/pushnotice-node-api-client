@@ -1,15 +1,16 @@
+import process from 'node:process'
+import 'dotenv/config.js'// eslint-disable-line import/no-unassigned-import
 import test from 'ava'
 import pnotice from './index.js'
 
-// TODO: find a way to load config.chat from file?
 const config = {
   chat: {
-    id: '',
-    secret: '',
+    id: process.env.PUSHNOTICE_CHAT_ID,
+    secret: process.env.PUSHNOTICE_CHAT_SECRET,
   },
 }
 
-if (config.chat.id !== '') {
+if (config.chat.id) {
   console.log('Test file currently being run:', test.meta.file)
 
   test('handle options.disabled = true', async (t) => {
