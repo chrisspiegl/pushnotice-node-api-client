@@ -1,7 +1,13 @@
 import test from 'ava'
-import pnotice from '.'
+import pnotice from './index.js'
 
 // TODO: find a way to load config.chat from file?
+const config = {
+  chat: {
+    id: '',
+    secret: '',
+  },
+}
 
 console.log('Test file currently being run:', test.meta.file)
 
@@ -12,7 +18,8 @@ test('handle options.disabled = true', async (t) => {
     chat: config.chat,
     env: 'test',
   })
-  t.is((await pn('hello world', 'INFO'))?.error?.title, 'Disabled')
+  const response = await pn('hello world', 'INFO')
+  t.is(response?.error?.title, 'Disabled')
 })
 
 test('handle options.chat.id = undefined', async (t) => {
@@ -25,7 +32,8 @@ test('handle options.chat.id = undefined', async (t) => {
     },
     env: 'test',
   })
-  t.is((await pn('hello world', 'INFO'))?.error?.title, 'MissingChatId')
+  const response = await pn('hello world', 'INFO')
+  t.is(response?.error?.title, 'MissingChatId')
 })
 
 test('handle options.chat.secret = undefined', async (t) => {
@@ -38,7 +46,8 @@ test('handle options.chat.secret = undefined', async (t) => {
     },
     env: 'test',
   })
-  t.is((await pn('hello world', 'INFO'))?.error?.title, 'MissingChatSecret')
+  const response = await pn('hello world', 'INFO')
+  t.is(response?.error?.title, 'MissingChatSecret')
 })
 
 test('handle options.chat = undefined', async (t) => {
@@ -48,7 +57,8 @@ test('handle options.chat = undefined', async (t) => {
     chat: undefined,
     env: 'test',
   })
-  t.is((await pn('hello world', 'INFO'))?.error?.title, 'MissingChatObject')
+  const response = await pn('hello world', 'INFO')
+  t.is(response?.error?.title, 'MissingChatObject')
 })
 
 test('handle text being an object', async (t) => {
@@ -58,7 +68,8 @@ test('handle text being an object', async (t) => {
     chat: config.chat,
     env: 'test',
   })
-  t.is((await pn({ i: 'am an object' }, 'INFO'))?.error?.title, 'TextMustBeString')
+  const response = await pn({ i: 'am an object' }, 'INFO')
+  t.is(response?.error?.title, 'TextMustBeString')
 })
 
 test('handle namespace being an object', async (t) => {
@@ -68,7 +79,8 @@ test('handle namespace being an object', async (t) => {
     chat: config.chat,
     env: 'test',
   })
-  t.is((await pn('hello world', 'INFO'))?.error?.title, 'NamespaceMustBeString')
+  const response = await pn('hello world', 'INFO')
+  t.is(response?.error?.title, 'NamespaceMustBeString')
 })
 
 test('handle successfully sent', async (t) => {
@@ -78,5 +90,6 @@ test('handle successfully sent', async (t) => {
     chat: config.chat,
     env: 'test',
   })
-  t.is((await pn('hello world', 'INFO'))?.success, true)
+  const response = await pn('hello world', 'INFO')
+  t.is(response?.status, 'ok')
 })

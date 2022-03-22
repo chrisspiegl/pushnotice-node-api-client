@@ -18,6 +18,7 @@ module.exports = {
       'error',
       "never",
       {
+        'js': 'always',
         'json': "always",
         'vue': "always",
         'css': 'always',
@@ -29,6 +30,7 @@ module.exports = {
       "never",
       {
         "tryExtensions": [".js", ".json"],
+        '.js': 'always',
         '.json': "always",
         '.vue': "always",
         '.css': 'always',
