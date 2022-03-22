@@ -1,6 +1,6 @@
 {
   "type": "module",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "name": "pushnotice",
   "description": "Application Notifications sent to Telegram. Linking pushnotice.chat into your project.",
   "keywords": [
