@@ -85,6 +85,28 @@ if (config.chat.id) {
     t.is(response?.error?.title, 'NamespaceMustBeString')
   })
 
+  test('handle level and optionsInner sent', async (t) => {
+    const pn = pnotice('pntest', {
+      disabled: false,
+      debug: true,
+      chat: config.chat,
+      env: 'test',
+    })
+    const response = await pn('handle level and optionsInner sent', 'WARNING', { silent: true })
+    t.is(response?.status, 'ok')
+  })
+
+  test('handle no level but optionsInner as second argument', async (t) => {
+    const pn = pnotice('pntest', {
+      disabled: false,
+      debug: true,
+      chat: config.chat,
+      env: 'test',
+    })
+    const response = await pn('handle no level but optionsInner as second argument', { level: 'TESTING', silent: true })
+    t.is(response?.status, 'ok')
+  })
+
   test('handle successfully sent', async (t) => {
     const pn = pnotice('pntest', {
       disabled: false,
@@ -92,7 +114,7 @@ if (config.chat.id) {
       chat: config.chat,
       env: 'test',
     })
-    const response = await pn('hello world', 'INFO')
+    const response = await pn('handle successfully sent', 'INFO')
     t.is(response?.status, 'ok')
   })
 }

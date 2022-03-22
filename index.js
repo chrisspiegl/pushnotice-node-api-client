@@ -68,12 +68,13 @@ async function sendRequest(namespace, text, level = 'INFO', options = {}) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      idChat: options.chat.id,
-      secret: options.chat.secret,
+      idChat: options?.chat?.id || undefined,
+      secret: options?.chat?.secret || undefined,
       namespace,
       level,
       text,
-      env: options.env,
+      env: options.env || undefined,
+      silent: options.silent || false,
     }),
   }
 
@@ -96,8 +97,22 @@ async function sendRequest(namespace, text, level = 'INFO', options = {}) {
   }
 }
 
+function isString(value) {
+  return typeof value === 'string' || value instanceof String
+}
+
 function pnotice(namespace, options = {}) {
-  return (text, level = 'INFO') => sendRequest(namespace, text, level, options)
+  return (text, level = 'INFO', optionsInner = {}) => {
+    if (!isString(level)) {
+      optionsInner = level
+    }
+
+    if (optionsInner.level) {
+      level = optionsInner.level
+    }
+
+    return sendRequest(namespace, text, level, { ...options, ...optionsInner })
+  }
 }
 
 export default pnotice
