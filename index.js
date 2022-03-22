@@ -50,8 +50,8 @@ async function sendRequest(namespace, text, level = 'INFO', options = {}) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      chatId: options.chat.id,
-      chatSecret: options.chat.secret,
+      idChat: options.chat.id,
+      secret: options.chat.secret,
       namespace,
       level,
       text,
