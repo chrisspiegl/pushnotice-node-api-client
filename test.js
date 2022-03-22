@@ -96,6 +96,17 @@ if (config.chat.id) {
     t.is(response?.status, 'ok')
   })
 
+  test('handle no level but optionsInner (with level) as second argument', async (t) => {
+    const pn = pnotice('pntest', {
+      disabled: false,
+      debug: true,
+      chat: config.chat,
+      env: 'test',
+    })
+    const response = await pn('handle no level but optionsInner (with level) as second argument', { level: 'TESTING', silent: true })
+    t.is(response?.status, 'ok')
+  })
+
   test('handle no level but optionsInner as second argument', async (t) => {
     const pn = pnotice('pntest', {
       disabled: false,
@@ -103,7 +114,7 @@ if (config.chat.id) {
       chat: config.chat,
       env: 'test',
     })
-    const response = await pn('handle no level but optionsInner as second argument', { level: 'TESTING', silent: true })
+    const response = await pn('handle no level but optionsInner as second argument', { silent: true })
     t.is(response?.status, 'ok')
   })
 

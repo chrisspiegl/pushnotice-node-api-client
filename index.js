@@ -104,7 +104,8 @@ function isString(value) {
 function pnotice(namespace, options = {}) {
   return (text, level = 'INFO', optionsInner = {}) => {
     if (!isString(level)) {
-      optionsInner = level
+      optionsInner = { ...level }
+      level = undefined
     }
 
     if (optionsInner.level) {
