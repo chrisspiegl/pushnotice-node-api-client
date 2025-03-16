@@ -31,10 +31,11 @@
     "url": "https://ChrisSpiegl.com"
   },
   "repository": {
-    "url": "https://github.com/spieglio/pushnotice-node-api-client.git"
+    "type": "git",
+    "url": "https://github.com/chrisspiegl/pushnotice-node-api-client.git"
   },
   "bugs": {
-    "url": "https://github.com/spieglio/pushnotice-node-api-client/issues"
+    "url": "https://github.com/chrisspiegl/pushnotice-node-api-client/issues"
   },
   "homepage": "https://pushnotice.chat",
   "dependencies": {
