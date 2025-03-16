@@ -69,12 +69,14 @@ async function sendRequest(namespace, text, level = 'INFO', options = {}) {
     },
     body: JSON.stringify({
       idChat: options?.chat?.id || undefined,
+      idThread: options.idThread || undefined,
       secret: options?.chat?.secret || undefined,
       namespace,
       level,
       text,
       env: options.env || undefined,
-      silent: options.silent || false,
+      silent: options.silent || undefined,
+      clean: options.clean || undefined,
     }),
   }
 
