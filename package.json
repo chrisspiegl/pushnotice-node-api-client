@@ -19,7 +19,8 @@
     "format": "xo",
     "format:fix": "xo --fix",
     "test": "xo && ava -v",
-    "ava": "ava -v --watch"
+    "ava": "ava -v --watch",
+    "release": "bumpp -r && tsx scripts/release.ts"
   },
   "files": [
     "index.js"
@@ -43,8 +44,11 @@
   },
   "devDependencies": {
     "ava": "^4.1.0",
+    "bumpp": "^10.1.0",
     "dotenv": "^16.0.0",
     "npm-check-updates": "^12.5.4",
+    "simple-git": "^3.27.0",
+    "tsx": "^4.19.3",
     "xo": "^0.48.0"
   }
 }

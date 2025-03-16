@@ -1,0 +1,30 @@
+# Inspired by Elk.Zone - Release Action
+# https://github.com/elk-zone/elk/blob/main/.github/workflows/release.yml
+# This action creates a release with every new tag that is created.
+# It attaches release notes to the release which are based on the github commits / pull requests.
+name: Release Notes
+
+permissions:
+  contents: write
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - run: npx changelogithub
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
