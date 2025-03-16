@@ -2,7 +2,9 @@
 # https://github.com/elk-zone/elk/blob/main/.github/workflows/release.yml
 # This action creates a release with every new tag that is created.
 # It attaches release notes to the release which are based on the github commits / pull requests.
-name: Release Notes
+# Then publishes to NPM Registry.
+
+name: Release Notes & Publish to NPM
 
 permissions:
   contents: write
@@ -24,7 +26,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22.x'
+          registry-url: 'https://registry.npmjs.org'
 
       - run: npx changelogithub
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+      - run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
