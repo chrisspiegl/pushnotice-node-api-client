@@ -31,8 +31,7 @@
     "url": "https://ChrisSpiegl.com"
   },
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/spieglio/pushnotice-node-api-client.git"
+    "url": "https://github.com/spieglio/pushnotice-node-api-client.git"
   },
   "bugs": {
     "url": "https://github.com/spieglio/pushnotice-node-api-client/issues"
